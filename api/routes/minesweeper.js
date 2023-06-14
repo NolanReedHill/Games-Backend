@@ -15,7 +15,7 @@ router.get("/get-leaderboard", async (req, res) => {
         });
     });
     const sortedData = allLeaderboardData.sort((a, b) => {
-        return a.time < b.time ? 1 : -1;
+        return a.time > b.time ? 1 : -1;
     })
     res.json({ sortedData });
 })
