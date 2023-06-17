@@ -27,6 +27,7 @@ router.get("/get-leaderboard/:collection", async (req, res) => {
 router.post("/post-to-leaderboard", async (req, res) => {
     let temp = "" + serviceAccount.private_key_id;
     if (req.body.auth !== temp) {
+        console.log(req.body.auth)
         res.sendStatus(401)
         return;
     }
