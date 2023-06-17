@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("./firebase");
 const { getDocs, collection, addDoc } = require("firebase/firestore");
+const serviceAccount = require("../permissions.json");
 
 router.get("/get-leaderboard/:collection", async (req, res) => {
     const allLeaderboardData = []
@@ -24,6 +25,10 @@ router.get("/get-leaderboard/:collection", async (req, res) => {
 })
 
 router.post("/post-to-leaderboard", async (req, res) => {
+    if (req.body.auth !== serviceAccount.private_key) {
+        res.sendStatus(401)
+        return;
+    }
     const date = new Date();
     await addDoc(collection(db, req.body.collection), {
         name: req.body.name,
