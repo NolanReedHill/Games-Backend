@@ -6,7 +6,8 @@ const serviceAccount = require("../permissions.json");
 
 router.get("/get-leaderboard/:collection", async (req, res) => {
     const allLeaderboardData = []
-    const entries = await getDocs(collection(db, req.params.collection));
+    const entries = await getDocs(collection(db, req.params.collection))
+        .catch(() => res.sendStatus(400))
     entries.forEach((entry) => {
         let data = entry.data();
         allLeaderboardData.push({
