@@ -17,6 +17,9 @@ router.get("/get-leaderboard/:collection", async (req, res) => {
     const sortedData = allLeaderboardData.sort((a, b) => {
         return a.time > b.time ? 1 : -1;
     })
+    sortedData.forEach((data, index) => {
+        data.place = index + 1;
+    })
     res.json({ sortedData });
 })
 
