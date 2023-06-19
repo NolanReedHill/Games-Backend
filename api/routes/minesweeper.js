@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("./firebase");
-const { getDocs, collection, addDoc } = require("firebase/firestore");
+const { getDocs, collection, addDoc, doc, deleteDoc } = require("firebase/firestore");
 const serviceAccount = require("../permissions.json");
 
 router.get("/get-leaderboard/:collection", async (req, res) => {
@@ -13,6 +13,7 @@ router.get("/get-leaderboard/:collection", async (req, res) => {
             name: data.name,
             time: data.time,
             date: data.date,
+            id: entry.id,
         });
     });
     const sortedData = allLeaderboardData.sort((a, b) => {
@@ -21,6 +22,9 @@ router.get("/get-leaderboard/:collection", async (req, res) => {
     sortedData.forEach((data, index) => {
         data.place = index + 1;
     })
+    if (sortedData[100]) {
+        await deleteDoc(doc(db, req.params.collection, id));
+    }
     if (sortedData.length === 0)
         res.sendStatus(400);
     res.json({ sortedData });
