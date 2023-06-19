@@ -23,7 +23,8 @@ router.get("/get-leaderboard/:collection", async (req, res) => {
         data.place = index + 1;
     })
     if (sortedData[100]) {
-        await deleteDoc(doc(db, req.params.collection, id));
+        await deleteDoc(doc(db, req.params.collection, id))
+            .catch(error => res.status(400).json({ error }))
     }
     if (sortedData.length === 0)
         res.sendStatus(400);
