@@ -18,6 +18,7 @@ router.post("/signup", async (req, res) => {
         const userId = v4();
         const hashedPassword = await bcrypt.hash(password, 10);
         const token = serverClient.createToken(userId);
+        console.log(token);
         res.json({ result: { token: token, userId: userId, firstName: firstName, lastName: lastName, username: username, hashedPassword: hashedPassword } });
     } catch (error) {
         res.json(error);
