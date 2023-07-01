@@ -10,19 +10,15 @@ const serverClient = new StreamChat.getInstance(api_key, api_secret);
 
 router.post("/signup", async (req, res) => {
     console.log(req.body.firstName)
-    try {
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const username = req.body.username;
-        const password = req.body.password;
-        const userId = v4();
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const token = serverClient.createToken(userId);
-        console.log(token);
-        res.json({ result: { token: token, userId: userId, firstName: firstName, lastName: lastName, username: username, hashedPassword: hashedPassword } });
-    } catch (error) {
-        res.json(error);
-    }
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const username = req.body.username;
+    const password = req.body.password;
+    const userId = v4();
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const token = serverClient.createToken(userId);
+    console.log(token);
+    res.json({ token: token, userId: userId, firstName: firstName, lastName: lastName, username: username, hashedPassword: hashedPassword });
 });
 
 router.post("/login", async (req, res) => {
