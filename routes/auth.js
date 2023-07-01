@@ -40,10 +40,10 @@ router.post("/login", async (req, res) => {
 
         if (passwordMatch) {
             res.json({
-                token,
+                token: token,
                 firstName: users[0].firstName,
                 lastName: users[0].lastName,
-                username,
+                username: username,
                 userId: users[0].id,
             });
         }
