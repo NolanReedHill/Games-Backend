@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
         console.log(api_key)
         console.log(api_secret)
         if (users.length === 0)
-            res.json({ message: "User not found" });
+            return res.json({ message: "User not found" });
 
         const token = serverClient.createToken(users[0].id);
         const passwordMatch = await bcrypt.compare(
