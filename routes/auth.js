@@ -11,7 +11,10 @@ const serverClient = new StreamChat.getInstance(api_key, api_secret);
 router.post("/signup", async (req, res) => {
     console.log(req.body)
     try {
-        const { firstName, lastName, username, password } = req.body;
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const username = req.body.username;
+        const password = req.body.password;
         const userId = v4();
         const hashedPassword = await bcrypt.hash(password, 10);
         const token = serverClient.createToken(userId);
