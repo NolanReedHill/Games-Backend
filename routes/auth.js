@@ -36,7 +36,7 @@ router.post("/login", async (req, res) => {
             password,
             users[0].hashedPassword
         );
-        console.log("3")
+        console.log(passwordMatch);
 
         if (passwordMatch) {
             res.json({
