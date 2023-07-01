@@ -25,7 +25,10 @@ router.post("/login", async (req, res) => {
         const { username, password } = req.body;
         const { users } = await serverClient.queryUsers({ name: username });
         console.log(users);
-        if (users.length === 0) return res.json({ message: "User not found" });
+        console.log(api_key)
+        console.log(api_secret)
+        if (users.length === 0)
+            res.json({ message: "User not found" });
 
         const token = serverClient.createToken(users[0].id);
         const passwordMatch = await bcrypt.compare(
