@@ -2,6 +2,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "firebase": "^9.22.2",
+    "stream-chat": "^8.9.0",
     "uuid": "^9.0.0"
   }
 }
