@@ -9,7 +9,7 @@ const api_secret = process.env.api_secret;
 const serverClient = new StreamChat.getInstance(api_key, api_secret);
 
 router.post("/signup", async (req, res) => {
-    console.log(req.body)
+    console.log(req.body.firstName)
     try {
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
