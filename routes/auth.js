@@ -9,6 +9,7 @@ const api_secret = process.env.api_secret;
 const serverClient = new StreamChat.getInstance(api_key, api_secret);
 
 router.post("/signup", async (req, res) => {
+    console.log(req.body)
     try {
         const { firstName, lastName, username, password } = req.body;
         const userId = v4();
@@ -25,8 +26,6 @@ router.post("/login", async (req, res) => {
         const { username, password } = req.body;
         const { users } = await serverClient.queryUsers({ name: username });
         console.log(users);
-        console.log(api_key)
-        console.log(api_secret)
         if (users.length === 0)
             return res.json({ message: "User not found" });
 
