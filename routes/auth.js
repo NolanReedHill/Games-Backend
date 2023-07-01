@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { StreamChat } = require("stream-chat");
-const v4 = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 
 const api_key = process.env.api_key;
@@ -10,15 +10,19 @@ const serverClient = new StreamChat.getInstance(api_key, api_secret);
 
 router.post("/signup", async (req, res) => {
     console.log(req.body.firstName)
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const username = req.body.username;
-    const password = req.body.password;
-    const userId = v4();
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const token = serverClient.createToken(userId);
-    console.log(token);
-    res.json({ token: token, userId: userId, firstName: firstName, lastName: lastName, username: username, hashedPassword: hashedPassword });
+    try {
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const username = req.body.username;
+        const password = req.body.password;
+        const userId = uuidv4();
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const token = serverClient.createToken(userId);
+        console.log(token);
+        res.json({ token: token, userId: userId, firstName: firstName, lastName: lastName, username: username, hashedPassword: hashedPassword });
+    } catch (error) {
+        res.json(error);
+    }
 });
 
 router.post("/login", async (req, res) => {
