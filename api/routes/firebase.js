@@ -2,7 +2,7 @@ const { initializeApp } = require("firebase/app");
 const { getFirestore } = require("firebase/firestore");
 
 
-const serviceAccount = require("../../permissions.json");
+const serviceAccount = require("../permissions.json");
 
 
 const app = initializeApp(serviceAccount);
