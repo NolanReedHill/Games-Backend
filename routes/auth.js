@@ -10,6 +10,10 @@ const serverClient = new StreamChat.getInstance(api_key, api_secret);
 
 router.post("/signup", async (req, res) => {
     try {
+        const { users } = await serverClient.queryUsers({ name: req.body.username });
+        if (users.length !== 0) {
+            return res.json({ message: "Username taken" });
+        }
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
         const username = req.body.username;
